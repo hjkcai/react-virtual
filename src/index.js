@@ -183,6 +183,10 @@ export function useVirtual({
                 ...old,
                 [item.key]: measuredSize,
               }))
+
+              // Deal with the case that this function (measureRef) is cached by outside world in order to reduce re-renders.
+              // Otherwise there will be infinite measureRef calls during scrolling, causing performance issues.
+              item.size = measuredSize
             }
           }
         },
