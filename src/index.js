@@ -1,6 +1,6 @@
 import React from 'react'
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect'
-import { useCustomObserver } from './useCustomObserver'
+import { useResizeObserver } from './useResizeObserver'
 
 const defaultEstimateSize = () => 50
 
@@ -53,7 +53,7 @@ export function useVirtual({
   const [scrollOffset, setScrollOffset] = React.useState(0)
   latestRef.current.scrollOffset = scrollOffset
 
-  const useMeasureParent = useObserver || useCustomObserver
+  const useMeasureParent = useObserver || useResizeObserver
 
   const { [sizeKey]: outerSize } = useMeasureParent(parentRef, initialRect)
 
