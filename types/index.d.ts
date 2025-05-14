@@ -15,7 +15,14 @@ export type VirtualItem = {
   start: number
   end: number
   size: number
-  measureRef: (el: HTMLElement | null) => void
+  measureRef: MeasureRef
+}
+
+export interface MeasureRef {
+  (el: HTMLElement | null): void
+  current?: (el: HTMLElement | null) => void;
+  el: HTMLElement | null;
+  forceUpdate: () => void;
 }
 
 export interface Range {
@@ -52,10 +59,11 @@ export interface Options<T> {
   rangeExtractor?: (range: Range) => number[]
 }
 
-declare function useVirtual<T>(options: Options<T>): {
+declare function useVirtual<T>(options: Options<T>): Virtualizer
+
+export interface Virtualizer {
   virtualItems: VirtualItem[]
   totalSize: number
-  scrollToOffset: (index: number, options?: ScrollToOffsetOptions) => void
   scrollToIndex: (index: number, options?: ScrollToIndexOptions) => void
   measure: () => void
 }
