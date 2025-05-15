@@ -57,6 +57,7 @@ export interface Options<T> {
   onScrollElement?: React.RefObject<HTMLElement>
   scrollOffsetFn?: (event?: Event) => number
   rangeExtractor?: (range: Range) => number[]
+  measureSize?: (el: HTMLElement, horizontal: boolean) => number
 }
 
 declare function useVirtual<T>(options: Options<T>): Virtualizer

@@ -1,6 +1,6 @@
 {
   "name": "hjkcai-react-virtual",
-  "version": "2.12.0",
+  "version": "2.12.1",
   "description": "Hooks for virtualizing scrollable elements in React",
   "author": "tannerlinsley",
   "license": "MIT",
