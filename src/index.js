@@ -70,7 +70,12 @@ export function useVirtual({
 
   const [measuredCache, setMeasuredCache] = React.useState({})
 
-  const measure = React.useCallback(() => setMeasuredCache({}), [])
+  const measure = React.useCallback(() => {
+    setMeasuredCache({})
+    Object.values(latestRef.current.measureRefCache).forEach((measureRef) => {
+      measureRef.forceUpdate();
+    });
+  }, [])
 
   const measurements = React.useMemo(() => {
     const min =
@@ -224,7 +229,8 @@ export function useVirtual({
         }
       }
 
-      const tryScrollToIndex = (index, { align = 'auto', ...rest } = {}) => {
+      const tryScrollToIndex = (index, options = {}) => {
+        let { align = 'auto' } = options
         const { measurements, scrollOffset, outerSize } = latestRef.current
 
         const measurement = measurements[Math.max(0, Math.min(index, size - 1))]
@@ -250,7 +256,7 @@ export function useVirtual({
             ? measurement.end
             : measurement.start
 
-        scrollToOffset(toOffset, { align, ...rest })
+        scrollToOffset(toOffset, { ...options, align })
       }
 
       return (index, options) => {
